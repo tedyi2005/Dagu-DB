@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 17, 2020 at 02:56 AM
+-- Generation Time: Nov 19, 2020 at 03:28 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.0.23
 
@@ -45,6 +45,25 @@ CREATE TABLE IF NOT EXISTS `business` (
   `updatedby` int(11) DEFAULT NULL,
   `updatedated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`businessid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_appointment`
+--
+
+DROP TABLE IF EXISTS `business_appointment`;
+CREATE TABLE IF NOT EXISTS `business_appointment` (
+  `appointmentid` int(11) NOT NULL AUTO_INCREMENT,
+  `businessid` int(11) NOT NULL,
+  `firstname` varchar(100) NOT NULL,
+  `lastname` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phonenumber` varchar(50) NOT NULL,
+  `comment` text NOT NULL,
+  `appointmentdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`appointmentid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
