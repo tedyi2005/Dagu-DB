@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 19, 2020 at 03:28 AM
+-- Generation Time: Nov 24, 2020 at 12:17 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.0.23
 
@@ -90,6 +90,27 @@ CREATE TABLE IF NOT EXISTS `business_items` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `business_orders`
+--
+
+DROP TABLE IF EXISTS `business_orders`;
+CREATE TABLE IF NOT EXISTS `business_orders` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `products` varchar(500) NOT NULL,
+  `transaction_id` varchar(255) NOT NULL,
+  `transaction_amount` decimal(18,2) NOT NULL DEFAULT '0.00',
+  `transaction_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `payment_type` enum('COD','Card','Net Banking','UPI') NOT NULL,
+  `payment_status` enum('Success','Fail') NOT NULL DEFAULT 'Fail',
+  `order_type` enum('Normal','Express') NOT NULL DEFAULT 'Normal',
+  `order_status` enum('In Progress','Confirmed','Delivered','Cancelled','Out for Delivery') NOT NULL DEFAULT 'In Progress',
+  PRIMARY KEY (`order_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customer_base`
 --
 
@@ -110,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `customer_base` (
   `token_id` text,
   `device_type` enum('Android','Ios') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -124,7 +145,58 @@ CREATE TABLE IF NOT EXISTS `services` (
   `servicename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `status` enum('Active','InActive') CHARACTER SET utf8 NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`serviceid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trust`
+--
+
+DROP TABLE IF EXISTS `trust`;
+CREATE TABLE IF NOT EXISTS `trust` (
+  `trust_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trust_name` varchar(200) NOT NULL,
+  `trust_address` varchar(200) NOT NULL,
+  `trusttype` int(11) NOT NULL,
+  `image` text NOT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  PRIMARY KEY (`trust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trust_donate`
+--
+
+DROP TABLE IF EXISTS `trust_donate`;
+CREATE TABLE IF NOT EXISTS `trust_donate` (
+  `donate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(500) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `transaction_id` varchar(255) NOT NULL,
+  `transaction_amount` decimal(18,2) NOT NULL DEFAULT '0.00',
+  `transaction_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `payment_type` enum('COD','Card','Net Banking','UPI') NOT NULL,
+  `payment_status` enum('Success','Fail') NOT NULL DEFAULT 'Fail',
+  PRIMARY KEY (`donate_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trust_type`
+--
+
+DROP TABLE IF EXISTS `trust_type`;
+CREATE TABLE IF NOT EXISTS `trust_type` (
+  `trusttype_id` int(11) NOT NULL AUTO_INCREMENT,
+  `trusttype_name` varchar(250) NOT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `image` text,
+  PRIMARY KEY (`trusttype_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
