@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 24, 2020 at 12:17 PM
+-- Generation Time: Nov 27, 2020 at 02:10 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.0.23
 
@@ -111,6 +111,23 @@ CREATE TABLE IF NOT EXISTS `business_orders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_address`
+--
+
+DROP TABLE IF EXISTS `customer_address`;
+CREATE TABLE IF NOT EXISTS `customer_address` (
+  `add_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `firstname` varchar(500) DEFAULT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `phonenumber` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`add_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customer_base`
 --
 
@@ -136,6 +153,22 @@ CREATE TABLE IF NOT EXISTS `customer_base` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_card_details`
+--
+
+DROP TABLE IF EXISTS `customer_card_details`;
+CREATE TABLE IF NOT EXISTS `customer_card_details` (
+  `carddetailsid` int(11) NOT NULL AUTO_INCREMENT,
+  `cartnumber` varchar(50) DEFAULT NULL,
+  `expirydate` varchar(50) DEFAULT NULL,
+  `cvv` varchar(50) DEFAULT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`carddetailsid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
@@ -146,6 +179,36 @@ CREATE TABLE IF NOT EXISTS `services` (
   `status` enum('Active','InActive') CHARACTER SET utf8 NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`serviceid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tax`
+--
+
+DROP TABLE IF EXISTS `tax`;
+CREATE TABLE IF NOT EXISTS `tax` (
+  `taxid` int(11) NOT NULL AUTO_INCREMENT,
+  `taxname` varchar(100) NOT NULL,
+  `percentage` decimal(18,2) NOT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
+  PRIMARY KEY (`taxid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timeslot`
+--
+
+DROP TABLE IF EXISTS `timeslot`;
+CREATE TABLE IF NOT EXISTS `timeslot` (
+  `timeslotid` int(11) NOT NULL AUTO_INCREMENT,
+  `formtime` varchar(20) NOT NULL,
+  `totime` varchar(20) NOT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
+  PRIMARY KEY (`timeslotid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -197,6 +260,20 @@ CREATE TABLE IF NOT EXISTS `trust_type` (
   `image` text,
   PRIMARY KEY (`trusttype_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+CREATE TABLE IF NOT EXISTS `wishlist` (
+  `wishlist_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`wishlist_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
